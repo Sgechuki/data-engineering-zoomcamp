@@ -8,6 +8,23 @@ terraform {
 }
 
 provider "google" {
-  project = "my-project-id"
+  project = "nth-weft-417606"
   region  = "us-central1" # Configuration options
+}
+
+resource "google_storage_bucket" "demo-bucket" {
+  name          = "nth-weft-417606-terra-bucket"
+  location      = "US"
+  force_destroy = true
+
+
+
+  lifecycle_rule {
+    condition {
+      age = 1
+    }
+    action {
+      type = "AbortIncompleteMultipartUpload"
+    }
+  }
 }
